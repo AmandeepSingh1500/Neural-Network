@@ -148,15 +148,15 @@ optimizer = optim.Adam(model.parameters(), lr=0.01)
 epochs = 2000
 losses = []
 
-plt.ion()  # Turn on interactive mode for real-time plotting
-fig, ax = plt.subplots()
-line, = ax.plot([], [], label='Loss')
-ax.set_xlim(0, epochs)
-ax.set_ylim(0, 0.1)  # Adjust this dynamically during training
-ax.set_xlabel('Epoch')
-ax.set_ylabel('Loss')
-ax.set_title('Training Loss')
-ax.legend()
+# plt.ion()  # Turn on interactive mode for real-time plotting
+# fig, ax = plt.subplots()
+# line, = ax.plot([], [], label='Loss')
+# ax.set_xlim(0, epochs)
+# ax.set_ylim(0, 0.1)  # Adjust this dynamically during training
+# ax.set_xlabel('Epoch')
+# ax.set_ylabel('Loss')
+# ax.set_title('Training Loss')
+# ax.legend()
 
 for epoch in range(epochs):
     model.train()
@@ -170,14 +170,14 @@ for epoch in range(epochs):
     
     losses.append(loss.item())
     
-    # Update real-time plot
-    if epoch == 0:
-        ax.set_ylim(0, loss.item())  # Dynamically adjust y-axis for the first epoch
-    line.set_xdata(range(len(losses)))
-    line.set_ydata(losses)
-    ax.relim()
-    ax.autoscale_view()
-    plt.pause(0.01)  # Pause for a moment to update the plot
+    # # Update real-time plot
+    # if epoch == 0:
+    #     ax.set_ylim(0, loss.item())  # Dynamically adjust y-axis for the first epoch
+    # line.set_xdata(range(len(losses)))
+    # line.set_ydata(losses)
+    # ax.relim()
+    # ax.autoscale_view()
+    # plt.pause(0.01)  # Pause for a moment to update the plot
     
     if epoch % 100 == 0:
         print(f"Epoch {epoch}, Loss: {loss.item()}")
@@ -194,23 +194,23 @@ with torch.no_grad():
 plt.figure(figsize=(14, 6))
 
 # Plot numerical and NN solutions for each angle
-labels = [r"$\theta_1$", r"$\theta_2$", r"$\theta_3$"]
-colors = ['red', 'green', 'blue']
+labels = [r"$\theta_1$", r"$\theta_2$", r"$\theta_3$", r"$\theta_4$"]
+colors = ['red', 'green', 'blue', 'yellow']
 
-for i in range(3):
+for i in range(4):
     plt.plot(x_data, y_data_all[:, i], label=f"{labels[i]} (Numerical)", color=colors[i], linestyle='dashed')
     plt.plot(x_data, y_pred_all[:, i], label=f"{labels[i]} (NN Approximation)", color=colors[i])
 
 plt.xlabel('Time (t)')
 plt.ylabel(r'$\theta$')
-plt.title('Numerical and Neural Network Approximations of Triple Pendulum')
+plt.title('Numerical and Neural Network Approximations of Quadrople Pendulum')
 plt.legend()
 plt.grid(True)
 plt.show()
 
 # Plot errors for each angle
 plt.figure(figsize=(14, 6))
-for i in range(3):
+for i in range(4):
     error = np.abs(y_data_all[:, i] - y_pred_all[:, i])
     plt.plot(x_data, error, label=f"Error in {labels[i]}", color=colors[i])
 
