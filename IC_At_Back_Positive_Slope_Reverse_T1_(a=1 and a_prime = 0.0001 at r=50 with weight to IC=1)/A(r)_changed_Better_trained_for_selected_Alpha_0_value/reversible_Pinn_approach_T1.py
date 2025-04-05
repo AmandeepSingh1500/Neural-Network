@@ -59,8 +59,8 @@ for element in alpha_values_0:
         #Phi = (r*A_prime) / A        
 
         # Terms from the given simplified equation (with delta(r)=0)
-        term1 = (A**2)*(Phi_prime*A_prime - A_prime**2) + ((p + 1)/r*(p - 0.5))*(Phi_prime*(A**3)-A_prime*(A**2))
-        term2 = A_prime**3
+        term1 = (A**2)*Phi_prime*A_prime - (A_prime**2)*A + ((p + 1)/r*(p - 0.5))*(Phi_prime*(A**3)-A_prime*(A**2))
+        term2 = -(3*r/2)*A_prime**3
         term3 = 3*(A_prime**2)*A -4*(A_prime*(A**2))/r
         term4 = (A_prime**2)*( (5*r*A_prime/2) - A)
         term5 = ((p - 1)/r*(p - 0.5))*A_prime*( (A**2) + A)
@@ -114,6 +114,11 @@ for element in alpha_values_0:
 
         loss.backward()
         optimizer.step()
+
+        if float(loss.item()) < 0.0005: # capping the training at this loss
+            print( float(loss.item()) )
+            break
+
         if epoch % 500 == 0:
             print(f'Epoch {epoch}, Loss: {loss.item():.6f}')
 
